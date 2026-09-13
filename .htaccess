@@ -1,0 +1,16 @@
+# Only the public pages are reachable. Code, secrets and logs are not.
+Options -Indexes
+
+# Secrets, the cron worker, and this file itself — never served.
+<FilesMatch "^(config\.php|config\.sample\.php|worker\.php|worker\.log|\.htaccess|README\.txt)$">
+  Require all denied
+</FilesMatch>
+
+# Any log / dump / backup by extension.
+<FilesMatch "\.(log|sql|md|txt|bak|old|orig|swp|dist|sample)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always unset X-Powered-By
+</IfModule>
